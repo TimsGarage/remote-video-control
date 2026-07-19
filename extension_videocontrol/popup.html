@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Magic Controls</title>
+</head>
+<body>
+    <div class="status_header">
+        <h4 style="margin-right: 5px;">Controlies</h4>
+    </div>
+    
+    <div class="main-controls">
+        <input type="number" id="durationInput" placeholder="Title" />
+        <button id="injectButton">Inject</button>
+        <p style="color: #777; text-align: center;">Once injected you have to close the tab to get it out because i am to lazy to implement another way</p>
+    </div>
+    
+    
+    <div class="dev-options">
+        <p>Dev Options V: 1.1</p>
+        <!-- <div style="display: flex; gap: 5px; width: 100%">
+            <button id="dev" style="flex: 1;"> Dev </button>
+            <button id="controlsButton" style="flex: 1;">Controls</button>
+        </div>
+        <button id="resetButton">Reset Controls</button> -->
+    </div>
+
+    
+    <script src="popup.js"></script>
+</body>
+</html>
+
+<style>
+    h1,h2,h3,h4,h5,p {
+        padding: 0;
+        margin: 0;
+    }
+    p {
+        font-size: .85rem; 
+    }
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        width: 300px;
+        background-color: #dfdfdf;
+    }
+    button {
+        padding: 5px;
+        font-size: 12px;
+        background-color: #dfdfdf;
+        border: none;
+        border-radius: 10px;
+    }
+    button:hover:not(:disabled) {
+        background-color: #f8f8f8;
+        cursor: pointer;
+    }
+    button:disabled{
+        opacity: .75;
+        cursor:not-allowed;
+    }
+
+    .status_header {
+        display: flex;
+        align-items: center;
+        height: 1rem;
+        padding: .5rem;
+        background-color: #333;
+        color: #eee;
+    }
+
+    .main-controls {
+        display: flex;
+        flex-direction: column;
+        gap: .25rem;
+        padding: 1rem;
+    }
+
+    #injectButton,
+    #stopButton {
+        padding: 15px;
+        margin-right: 10px;
+        font-size: 16px;
+        width: 100%;
+        border: none;
+        border-radius: 2rem;
+        background-color: #333;
+        color: #eee;
+    }
+    #stopButton:hover:not(:disabled) {
+        background-color: #555;
+    }
+
+    #injectButton {
+        background-color: #cf2d2d;
+    }
+    #injectButton:hover:not(:disabled) {
+        background-color: #df0000;
+    }
+    #injectButton:disabled {
+        background-color: #555;
+    }
+
+    #durationInput {
+        padding: 10px;
+        margin: .5rem;
+        font-size: 14px;
+        border-radius: .5rem;
+        border: none;
+    }
+
+    .dev-options {
+        display: flex;
+        flex-direction: column;
+        gap: .25rem;
+        padding: .5rem 1rem;
+        color: #eee;
+        background-color: #555;
+    }
+
+</style>
