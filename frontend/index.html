@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -64,12 +65,38 @@
         }
     </style>
 </head>
+
 <body>
     <h1>Controller</h1>
 
+    <div id="settings-panel"
+        style="background-color: #e5e5e5; display: inline-flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 10px 15px; border-bottom: 2px solid #ccc; font-size: 14px; width: calc(100% - 30px);">
+        <div style="display: flex; align-items: center; gap: 5px; margin-right: 20px;">
+            <span id="connection-indicator"
+                style="width: 10px; height: 10px; border-radius: 50%; background-color: #888; display: inline-block;"></span>
+            <span id="connection-text" style="color: #555; font-weight: bold; font-size: 13px;">Checking server
+                connection...</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px; flex-grow: 1; max-width: 550px; flex-wrap: wrap;">
+            <label for="server-url" style="white-space: nowrap; color: #555; font-weight: bold;">Server:</label>
+            <input type="text" id="server-url"
+                style="padding: 4px 8px; border: 1px solid #aaa; border-radius: 4px; flex-grow: 1; min-width: 120px;"
+                placeholder="e.g. http://localhost:6969">
+
+            <label for="session-url"
+                style="white-space: nowrap; color: #555; font-weight: bold; margin-left: 10px;">Session ID:</label>
+            <input type="text" id="session-url"
+                style="padding: 4px 8px; border: 1px solid #aaa; border-radius: 4px; width: 90px; text-transform: uppercase;"
+                placeholder="X9F2A1">
+
+            <button id="save-settings"
+                style="width: auto; height: auto; padding: 4px 12px; margin: 0; background-color: #585858; color: white; border-radius: 4px; margin-left: 5px;">Save</button>
+        </div>
+    </div>
+
     <h2>Beamer</h2>
     <div class="category">
-            <div class="button-grid">
+        <div class="button-grid">
             <button id="beamer-rewind">
                 <img src="icons/backward.png" alt="Rewind">
             </button>
@@ -104,7 +131,7 @@
             </button>
         </div>
     </div>
-    
+
     <h2>Laptop</h2>
     <div class="category">
         <div class="button-grid">
@@ -142,8 +169,9 @@
             </button>
         </div>
     </div>
-</div>
-    
+    </div>
+
 </body>
 <script src="app.js"></script>
+
 </html>

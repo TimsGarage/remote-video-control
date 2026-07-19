@@ -1,71 +1,88 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Magic Controls</title>
+    <title>Magic Controls Configuration</title>
 </head>
+
 <body>
     <div class="status_header">
-        <h4 style="margin-right: 5px;">Controlies</h4>
-    </div>
-    
-    <div class="main-controls">
-        <input type="number" id="durationInput" placeholder="Title" />
-        <button id="injectButton">Inject</button>
-        <p style="color: #777; text-align: center;">Once injected you have to close the tab to get it out because i am to lazy to implement another way</p>
-    </div>
-    
-    
-    <div class="dev-options">
-        <p>Dev Options V: 1.1</p>
-        <!-- <div style="display: flex; gap: 5px; width: 100%">
-            <button id="dev" style="flex: 1;"> Dev </button>
-            <button id="controlsButton" style="flex: 1;">Controls</button>
-        </div>
-        <button id="resetButton">Reset Controls</button> -->
+        <h4 style="margin-right: 5px;">Remote Control Settings</h4>
     </div>
 
-    
+    <div class="main-controls">
+        <div class="setting-item">
+            <span class="status-dot" id="statusDot"></span>
+            <strong>Status:</strong> <span id="statusText">Checking...</span>
+        </div>
+
+        <div class="setting-item">
+            <label for="backendUrlInput">Backend SSE Server:</label>
+            <input type="text" id="backendUrlInput" placeholder="https://videocontrol.timsalokat.dev" />
+        </div>
+
+        <div class="setting-item">
+            <label for="sessionIdInput">Your Session ID (Click to Copy):</label>
+            <div style="display: flex; gap: 5px; width: 100%;">
+                <input type="text" id="sessionIdInput" readonly
+                    style="flex-grow: 1; font-weight: bold; background-color: #eee; cursor: pointer; text-align: center;" />
+                <button id="regenSessBtn"
+                    style="padding: 4px 8px; font-weight: bold; background-color: #555; width: auto; height: auto;">Regen</button>
+            </div>
+        </div>
+
+        <div class="setting-item">
+            <label for="targetSelect">Target Client Identity:</label>
+            <select id="targetSelect">
+                <option value="beamer">Beamer (Projector)</option>
+                <option value="laptop">Laptop</option>
+                <option value="any">Listen to All (Any)</option>
+            </select>
+        </div>
+
+        <button id="saveBtn">Save & Apply Settings</button>
+
+        <hr style="border: 0; border-top: 1px solid #ccc; margin: 10px 0;" />
+
+        <button id="injectBtn">Force Inject Script on Tab</button>
+        <p style="color: #777; font-size: 11px; text-align: center; margin-top: 5px;">
+            Matched pages (Netflix, Prime Video, Disney+) are auto-injected. Use Force Inject for other tabs (e.g.
+            YouTube).
+        </p>
+    </div>
+
+    <div class="dev-options">
+        <p>Remote Control Extension V1.2</p>
+    </div>
+
     <script src="popup.js"></script>
 </body>
+
 </html>
 
 <style>
-    h1,h2,h3,h4,h5,p {
-        padding: 0;
-        margin: 0;
-    }
-    p {
-        font-size: .85rem; 
-    }
     body {
         font-family: Arial, sans-serif;
         margin: 0;
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
+        padding: 0;
         width: 300px;
         background-color: #dfdfdf;
     }
-    button {
-        padding: 5px;
-        font-size: 12px;
-        background-color: #dfdfdf;
-        border: none;
-        border-radius: 10px;
-    }
-    button:hover:not(:disabled) {
-        background-color: #f8f8f8;
-        cursor: pointer;
-    }
-    button:disabled{
-        opacity: .75;
-        cursor:not-allowed;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    p {
+        padding: 0;
+        margin: 0;
     }
 
     .status_header {
         display: flex;
         align-items: center;
-        height: 1rem;
+        height: 1.5rem;
         padding: .5rem;
         background-color: #333;
         color: #eee;
@@ -74,50 +91,67 @@
     .main-controls {
         display: flex;
         flex-direction: column;
-        gap: .25rem;
+        gap: .5rem;
         padding: 1rem;
     }
 
-    #injectButton,
-    #stopButton {
-        padding: 15px;
-        margin-right: 10px;
-        font-size: 16px;
-        width: 100%;
-        border: none;
-        border-radius: 2rem;
-        background-color: #333;
-        color: #eee;
-    }
-    #stopButton:hover:not(:disabled) {
-        background-color: #555;
-    }
-
-    #injectButton {
-        background-color: #cf2d2d;
-    }
-    #injectButton:hover:not(:disabled) {
-        background-color: #df0000;
-    }
-    #injectButton:disabled {
-        background-color: #555;
-    }
-
-    #durationInput {
-        padding: 10px;
-        margin: .5rem;
-        font-size: 14px;
-        border-radius: .5rem;
-        border: none;
-    }
-
-    .dev-options {
+    .setting-item {
         display: flex;
         flex-direction: column;
         gap: .25rem;
-        padding: .5rem 1rem;
+        font-size: 13px;
+        color: #333;
+    }
+
+    .setting-item:first-child {
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 5px;
+    }
+
+    .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: #888;
+        display: inline-block;
+    }
+
+    input,
+    select {
+        padding: 6px;
+        border-radius: 4px;
+        border: 1px solid #aaa;
+        font-size: 13px;
+    }
+
+    button {
+        padding: 8px 12px;
+        font-size: 13px;
+        background-color: #333;
         color: #eee;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    button:hover {
         background-color: #555;
     }
 
+    #injectBtn {
+        background-color: #cf2d2d;
+    }
+
+    #injectBtn:hover {
+        background-color: #df0000;
+    }
+
+    .dev-options {
+        padding: .5rem 1rem;
+        color: #eee;
+        background-color: #555;
+        font-size: 11px;
+    }
 </style>

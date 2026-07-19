@@ -1,33 +1,17 @@
-function startWebSocketServer() {
-    const eventSource = new EventSource('https://videocontrol.timsalokat.dev/events');
-
-    eventSource.onmessage = (event) => {
-        const message = JSON.parse(event.data);
-        console.log('Message:', message);
-    };
-
-    eventSource.addEventListener('command', (event) => {
-        const parsedData = JSON.parse(event.data);
-        controlVideo(parsedData.command);
-    });
-
-    eventSource.onopen = () => console.log('Connection opened');
-    eventSource.onerror = (error) => console.error('Error:', error);
-    eventSource.onClose = () => console.log('Connection closed');
-}
-
 function controlVideo(command) {
     let video = document.querySelector("video");
     const url = window.location.href;
     if (url.includes("disneyplus.com")) {
         video = document.getElementById("hivePlayer");
     }
+
     if (video) {
+        console.log(`Executing video command: ${command}`);
         if (command === "play") video.play();
         else if (command === "pause") video.pause();
         else if (command === "skip") video.currentTime += 10;
-        else if (command === "rewind") video.currentTime -= 10; 
-        
+        else if (command === "rewind") video.currentTime -= 10;
+
         else if (command === "mute") video.muted = true;
         else if (command === "unmute") video.muted = false;
         else if (command === "volUp") video.volume = Math.min(1, video.volume + 0.1);
@@ -45,8 +29,18 @@ function controlVideo(command) {
             else if (document.msExitFullscreen) document.msExitFullscreen();
         }
         else console.log("Unknown command:", command);
+    } else {
+        console.error("No active HTML5 video element detected on page.");
     }
 }
 
-// Start the SSE connection
-startWebSocketServer();
+// Listen to instructions from background.js page
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.type === 'control-video') {
+        controlVideo(message.command);
+        sendResponse({ success: true, command: message.command });
+    }
+    return true;
+});
+
+console.log("Remote Video Control: Content script loaded and listening for background messages.");
